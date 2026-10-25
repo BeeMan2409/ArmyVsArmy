@@ -7,7 +7,7 @@ import java.util.HashMap;
 public class ResourceLoader {
 
     public static String[] spritesNames = {
-            "[]",
+            "[ ]",
             "barracks",
             "btr",
             "grass",

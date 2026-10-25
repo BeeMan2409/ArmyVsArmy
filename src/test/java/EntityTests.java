@@ -34,8 +34,8 @@ public class EntityTests {
         Map map = new Map(10, 10, entityManager);
         int[] uCoords = {uX, uY};
         int[] eCoords = {eX, eY};
-        Unit unit = new Unit(30, 30, uCoords, 1 , map);
-        Unit enemy = new Unit(60, 30, eCoords, 2, map);
+        Unit unit = new Infantry(uCoords, 1 , map);
+        Unit enemy = new Infantry(eCoords, 2 , map);
         u.put(unit.getPosition(), unit);
         u.put(enemy.getPosition(), enemy);
         unit.move(eCoords);
@@ -54,12 +54,17 @@ public class EntityTests {
         EntityManager entityManager = new EntityManager();
         Map map = new Map(10, 10, entityManager);
         Scanner scanner = new Scanner(System.in);
-        Input input = new Input(map, scanner);
+        Input input = new Input(map, entityManager);
         int[] newPos = {newX, newY};
         Unit unit = new Unit(30, 30, new int[]{x, y}, 1 , map);
         String oldPos = unit.getPosition();
         input.doAction("unit;move;" + unit.getPosition() + ";" + newPos[0] + ";" + newPos[1]);
         boolean testGood = false;
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         if (u.get(newPos[0] + ", " + newPos[1]) != null && u.get(oldPos) == null){
             testGood = true;
         }
@@ -83,7 +88,7 @@ public class EntityTests {
         EntityManager entityManager = new EntityManager();
         Map map = new Map(10, 10, entityManager);
         Scanner scanner = new Scanner(System.in);
-        Input input = new Input(map, scanner);
+        Input input = new Input(map, entityManager);
         Unit unit = new Infantry(new int[]{5, 5}, 1, map);
         Gui.setMap(map);
         Gui.setEntityManager(entityManager);

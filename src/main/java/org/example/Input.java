@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.Builds.Barracks;
+import org.example.Units.Infantry;
 
 import java.util.HashMap;
 import java.util.Scanner;
@@ -11,23 +12,15 @@ public class Input {
     private HashMap<String, Unit> units;
     private HashMap<String, City> builds;
 
-    public Input(Map map, Scanner scanner){
+    public Input(Map map, EntityManager EM){
         this.map = map;
-        units = map.getUnits();
-        builds = map.getBuilds();
-    }
-
-    public void start(Scanner scanner){
-        System.out.println("Input started");
-        Thread thread = new Thread(()->{
-            while (true){
-                doAction(Main.getIn());
-            }
-        });
-        thread.start();
+        units = EM.getUnits();
+        builds = EM.getBuilds();
     }
 
     public void doAction(String action){
+        Server.send(action);
+        Client.send(action);
         String[] parts = action.split(";");
         switch (parts[0]){
             case "unit":
@@ -36,9 +29,31 @@ public class Input {
             case "build":
                 actionForBuilds(parts);
                 break;
+            case "EM":
+                actionForEM(parts);
+                break;
 
             default: System.out.println("404 - action not found");
             break;
+        }
+    }
+
+    void actionForEM(String[] parts){
+        switch (parts[1]){
+            case "addU" ->{
+                switch (parts[2]){
+                    case "infantry" ->{
+                        Unit unit = new Infantry(new int[]{
+                                Integer.parseInt(parts[3]),
+                                Integer.parseInt(parts[4])},
+                                Integer.parseInt(parts[5]),
+                                map);
+                        map.getEM().addEntity(unit);
+                    }
+                    default -> {System.out.println("404 - unit type not found");}
+                }
+            }
+            default -> {System.out.println("404 - action not found");}
         }
     }
 

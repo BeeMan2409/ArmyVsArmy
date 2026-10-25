@@ -3,6 +3,7 @@ package org.example;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class Client {
 
@@ -10,6 +11,7 @@ public class Client {
     static int port = Main.port;
     static Socket superSocket;
     static PrintWriter out;
+    static Input input;
 
     static void send(String message) {
         if (out != null) {
@@ -23,8 +25,10 @@ public class Client {
         superSocket = socket;
         PrintWriter printWriter = new PrintWriter(socket.getOutputStream());
         out = printWriter;
+        Scanner in = new Scanner(socket.getInputStream());
         while (true){
-
+            System.out.println(in.nextLine());
+            input.doAction(in.nextLine());
         }
     }
 

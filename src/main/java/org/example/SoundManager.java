@@ -6,7 +6,11 @@ import java.util.HashMap;
 
 public class SoundManager {
     static HashMap<String, AudioClip> sounds = new HashMap<>();
-    static String[] soundsLib = {"system/error", "units/infantry/default"};
+    static String[] soundsLib = {"system/error",
+            "units/infantry/default",
+            "units/infantry/attack",
+            "units/infantry/death"
+    };
 
     public static HashMap<String, AudioClip> getSounds() {
         return sounds;
@@ -14,6 +18,10 @@ public class SoundManager {
 
     public static String[] getSoundsLib() {
         return soundsLib;
+    }
+
+    public static AudioClip getSoundInfantry(String name){
+        return sounds.get("units/infantry/" + name);
     }
 
     public static void loadSounds() {
@@ -35,6 +43,9 @@ public class SoundManager {
         switch (soundName){
             case "default" ->{
                 sounds.get(soundsLib[1]).play();
+            }
+            case "attack" ->{
+                sounds.get(soundsLib[2]).play();
             }
             default ->{System.out.println("\nSound not exist");}
         }

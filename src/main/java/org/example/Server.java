@@ -13,6 +13,7 @@ public class Server {
     static Socket superSocket;
     static ServerSocket superServerSocket;
     static PrintWriter out;
+    static Input input;
 
     static void send(String message) {
         if (out != null) {
@@ -34,8 +35,8 @@ public class Server {
         Scanner in = new Scanner(superSocket.getInputStream());
         System.out.println("done!");
         while (true){
-            String message = in.nextLine();
-            System.out.println(message);
+            System.out.println(in.nextLine());
+            input.doAction(in.nextLine());
         }
     }
 

@@ -29,12 +29,27 @@ public class EntityManager {
     public EntityManager(){}
 
     public void addEntity(Unit unit){
-        this.units.put(unit.coords, unit);
+        this.units.put(unit.getPosition(), unit);
         this.unitsList.add(unit);
     }
 
     public void addEntity(City city){
         this.builds.put(city.coords, city);
         this.buildsList.add(city);
+    }
+
+    public void removeEntity(String pos, Unit unit){
+        this.unitsList.remove(unit);
+        this.units.remove(pos);
+    }
+
+    public void removeEntity(String pos, City city){
+        this.buildsList.remove(city);
+        this.builds.remove(pos);
+    }
+
+    void sendToServ(String message){
+        Server.send(message);
+        Client.send(message);
     }
 }
