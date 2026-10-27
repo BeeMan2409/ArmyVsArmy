@@ -1,17 +1,20 @@
 package org.example;
 
 import javafx.scene.image.Image;
+import org.example.JavaInterfaces.IStats;
 
-public class City {
+public class City implements IStats {
 
     protected Image buildSprite;
     protected Map map;
     protected int[] rotateXY = {1, 0};
     protected String spriteName;
     protected int hp;
+    protected int maxHp;
     protected int team;
     protected int[] startPoint = {0, 0};
     protected int[] coords;
+    protected int[] size;
     protected String name;
     protected String getPosition(){
         return coords[0] + ", " + coords[1];
@@ -26,6 +29,27 @@ public class City {
 
     public int[] getCoords(){
         return coords;
+    }
+
+    @Override
+    public String getName(){
+        return name;
+    }
+
+    public int getHp(){
+        return hp;
+    }
+
+    public int getMaxHp(){
+        return maxHp;
+    }
+
+    public int[] getSize(){
+        return size;
+    }
+
+    public int getAttack(){
+        return 0;
     }
 
     public City(int hp, int team, int[] coords, Map map){

@@ -1,6 +1,7 @@
 package org.example;
 
 import javafx.scene.image.Image;
+import org.example.JavaInterfaces.Drawable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,6 +10,7 @@ public class Interface {
 
     public static HashMap<String, Interface> interfaceHashMap = new HashMap<>();
     public static ArrayList<Interface> interfaceList = new ArrayList<>();
+    public static ArrayList<Drawable> drawableArrayList = new ArrayList<>();
     protected int[] coords = {0, 0};
     protected int[] size = {64, 64};
     protected Image image;
@@ -41,6 +43,10 @@ public class Interface {
         if (!interfaceList.contains(this)) {
             interfaceList.add(this);
         }
+    }
+
+    public void setName(String name1){
+        name = name1;
     }
 
     public void setPosition(int[] xy){

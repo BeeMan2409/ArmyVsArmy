@@ -11,6 +11,8 @@ import javafx.scene.robot.Robot;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import org.example.Interfaces.DragBox;
+import org.example.Interfaces.UnitStats;
+import org.example.JavaInterfaces.Drawable;
 
 import java.awt.*;
 
@@ -28,21 +30,12 @@ public class Gui extends Application {
             Toolkit.getDefaultToolkit().getScreenSize().height
     };
     static int spriteSize = 64;
+    static boolean drawBox;
     static Stage stage;
     static StackPane root;
     static Map map;
     static EntityManager entityManager;
     static DragBox dragBox = new DragBox("dragbox gui");
-    public static int[] getHitBox(String object){
-        switch (object){
-            case "unit" ->{return new int[]{spriteSize, spriteSize};}
-
-            case "build" ->{return new int[]{spriteSize, spriteSize};}
-
-            default ->{return new int[]{64, 64};}
-
-        }
-    }
 
     public void start(Stage stage){
         stage.setTitle("ArmyVsArmy");
@@ -54,7 +47,7 @@ public class Gui extends Application {
         GraphicsContext gc1 = canvas1.getGraphicsContext2D();
         GraphicsContext gcInt = canvasInt.getGraphicsContext2D();
         gcInt.setStroke(Color.RED);
-        gcInt.setLineWidth(5);
+        gcInt.setLineWidth(2);
         gc.setImageSmoothing(false);
         gc1.setImageSmoothing(false);
         gcInt.setImageSmoothing(false);
@@ -84,6 +77,7 @@ public class Gui extends Application {
             }
         });
         scene.setOnMouseClicked(e ->{
+            dragBox.setCoordsX1Y1(new int[]{(int)robot.getMouseX(), (int)robot.getMouseY()});
             switch (e.getButton()) {
                 case PRIMARY -> {
                     Unit unit = getUnit(new int[]{(int) e.getSceneX(), (int) e.getSceneY()});
@@ -110,6 +104,7 @@ public class Gui extends Application {
                     }
                 }
             }
+            dragBox.remove();
         });
         scene.setOnMouseDragged(e ->{
             dragBox.setCoordsX1Y1(new int[]{(int)robot.getMouseX(), (int)robot.getMouseY()});
@@ -165,9 +160,11 @@ public class Gui extends Application {
             @Override
             public void handle(long l) {
                 gcInt.clearRect(0, 0, screenSize[0], screenSize[1]);
+                for (Drawable el: Interface.drawableArrayList){
+                    el.draw(gcInt);
+                }
                 for (Interface el: Interface.interfaceList){
                     gcInt.drawImage(el.image, el.coords[0], el.coords[1], el.size[0], el.size[1]);
-                    dragBox.draw(gcInt);
                 }
                 fillMap(gc);
                 gc1.clearRect(0, 0, screenSize[0], screenSize[1]);
