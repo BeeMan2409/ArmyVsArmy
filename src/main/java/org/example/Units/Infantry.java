@@ -8,14 +8,14 @@ import org.example.Unit;
 
 public class Infantry extends Unit {
 
-    private static int infCount = 0;
+    private static int infCount = 1;
     String name(){
         return "Infantry №" + String.valueOf(infCount);
     }
 
     public Infantry(int[] coords, int team, Map map){
-        infCount++;
         super(30, 10, coords, team, map);
+        infCount++;
         name = name();
         peakSound = SoundManager.getSoundInfantry("default");
         peakSound.play();

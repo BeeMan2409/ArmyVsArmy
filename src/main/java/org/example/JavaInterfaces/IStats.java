@@ -6,6 +6,8 @@ public interface IStats {
 
     public int getMaxHp();
 
+    public double getHpLevel();
+
     public int getAttack();
 
     public int[] getCoords();

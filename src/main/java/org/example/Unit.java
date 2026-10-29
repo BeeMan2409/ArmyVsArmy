@@ -49,6 +49,10 @@ public class Unit implements Attacable, Moveble, IStats {
     protected Thread moveThread;
     protected int[] size = {64, 64};
 
+    public double getHpLevel(){
+        return ((double) hp / maxHp) * 100;
+    }
+
     public int getHp(){
         return hp;
     }
@@ -229,7 +233,8 @@ public class Unit implements Attacable, Moveble, IStats {
     void killEnemy(Unit enemy){
         enemy.alive = false;
         enemy.deathSound.play();
-        map.getUnits().remove(enemy.getPosition());
+        System.out.println("Delete " + enemy.getName() + " on " + enemy.getPosition());
+        map.getEM().getUnits().remove(enemy.getPosition());
     }
 
     void killEnemy(City enemy){

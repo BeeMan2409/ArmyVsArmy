@@ -57,11 +57,11 @@ public class Main {
         EntityManager entityManager = new EntityManager();
         Map map = new Map(21, 11, entityManager);
         City barracks = new Barracks(1, new int[]{3, 3}, map);
-        //City barracks1 = new Barracks(2, new int[]{15, 7}, map);
+        City barracks1 = new Barracks(2, new int[]{10, 7}, map);
         map.show();
         inputListening(map, entityManager);
         masterInput.doAction("build;create;3, 3;infantry");
-        //masterInput.doAction("build;create;15, 7;infantry");
+        masterInput.doAction("build;create;10, 7;infantry");
         Gui.setMap(map);
         Gui.setInput(masterInput);
         Gui.setEntityManager(entityManager);

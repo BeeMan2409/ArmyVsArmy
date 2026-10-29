@@ -27,6 +27,7 @@ public class City implements IStats {
 
     public int[] getStartPoint(){return startPoint;}
 
+    @Override
     public int[] getCoords(){
         return coords;
     }
@@ -36,18 +37,27 @@ public class City implements IStats {
         return name;
     }
 
+    @Override
+    public double getHpLevel(){
+        return (hp / maxHp) * 100;
+    }
+
+    @Override
     public int getHp(){
         return hp;
     }
 
+    @Override
     public int getMaxHp(){
         return maxHp;
     }
 
+    @Override
     public int[] getSize(){
         return size;
     }
 
+    @Override
     public int getAttack(){
         return 0;
     }
